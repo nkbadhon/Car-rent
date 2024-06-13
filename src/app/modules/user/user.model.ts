@@ -11,10 +11,12 @@ const userSchema = new Schema<TUser>(
     },
     email: {
       type: String,
+      required: [true, 'email is required'],
     },
     role: {
       type: String,
       enum: ['admin', 'user'],
+      required: [true, 'role is required'],
     },
     password: {
       type: String,
@@ -23,9 +25,11 @@ const userSchema = new Schema<TUser>(
     },
     phone: {
       type: String,
+      required: [true, 'phone number is required'],
     },
     address: {
       type: String,
+      required: [true, 'address is required'],
     },
     isDeleted: {
       type: Boolean,
