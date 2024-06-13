@@ -21,19 +21,16 @@ const createCar = catchAsync(async (req, res) => {
   });
 });
 
-const getAllCars = async (req: Request, res: Response) => {
-  try {
-    const result = await carServices.getAllCarsFromDB();
-    sendResponse(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'All Cars retrived successfully',
-      data: result,
-    });
-  } catch (err) {
-    throw new AppError(httpStatus.BAD_GATEWAY, 'Failed to get all cars');
-  }
-};
+// Getting all cars
+const getAllCars = catchAsync(async (req, res) => {
+  const result = await carServices.getAllCarsFromDB(req.query);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'All Cars retrived successfully',
+    data: result,
+  });
+});
 
 export const carControllers = {
   createCar,

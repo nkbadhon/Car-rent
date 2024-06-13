@@ -6,11 +6,6 @@ const createUserInDB = async (userData: TUser) => {
   try {
     const newUser = await User.create(userData);
 
-    //   create a student
-    // if (!newUser.userData) {
-    //   throw new Error('Failed to create user');
-    // }
-
     return newUser;
   } catch (err: any) {
     throw new Error(err);
