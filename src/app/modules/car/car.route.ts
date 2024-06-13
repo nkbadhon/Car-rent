@@ -11,7 +11,13 @@ router.post(
   carControllers.createCar,
 );
 
+// To update a single car
+router.patch('/:_id', carControllers.updateSingleCar);
+
+// to get a single car
 router.get('/:_id', carControllers.getSingleCar);
+
+// To get all the cars
 router.get('/', carControllers.getAllCars);
 
 export const CarRoutes = router;

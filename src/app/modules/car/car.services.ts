@@ -1,7 +1,10 @@
+import { trusted } from 'mongoose';
 import QueryBuilder from '../../builder/QueryBuilder';
 import { carSearchableFields } from './car.const';
 import { TCar } from './car.interface';
 import { Car } from './car.model';
+import AppError from '../../Errors/AppError';
+import httpStatus from 'http-status';
 
 const createCarInDB = async (car: TCar) => {
   const result = await Car.create(car);
@@ -11,6 +14,17 @@ const createCarInDB = async (car: TCar) => {
 // Getting single car
 const getSingleCarFromDb = async (_id: string) => {
   const result = await Car.findById({ _id });
+  return result;
+};
+
+// Updating a car
+const updateSingleCarInDB = async (_id: string, payload: Partial<TCar>) => {
+  const result = await Car.findByIdAndUpdate(_id, payload, { new: true });
+
+  // If car not found, showing an error
+  if (!result) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Car not found');
+  }
   return result;
 };
 
@@ -31,4 +45,5 @@ export const carServices = {
   createCarInDB,
   getAllCarsFromDB,
   getSingleCarFromDb,
+  updateSingleCarInDB,
 };
