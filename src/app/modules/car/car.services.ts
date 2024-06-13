@@ -8,6 +8,12 @@ const createCarInDB = async (car: TCar) => {
   return result;
 };
 
+// Getting single car
+const getSingleCarFromDb = async (_id: string) => {
+  const result = await Car.findById({ _id });
+  return result;
+};
+
 // Getting all cars from DB
 const getAllCarsFromDB = async (query: Record<string, unknown>) => {
   const carQuery = new QueryBuilder(Car.find(), query)
@@ -24,4 +30,5 @@ const getAllCarsFromDB = async (query: Record<string, unknown>) => {
 export const carServices = {
   createCarInDB,
   getAllCarsFromDB,
+  getSingleCarFromDb,
 };
