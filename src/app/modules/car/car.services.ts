@@ -28,6 +28,23 @@ const updateSingleCarInDB = async (_id: string, payload: Partial<TCar>) => {
   return result;
 };
 
+// Deleting a car
+const deleteCarFromDB = async (_id: string) => {
+  // checking either car exist or not
+  const isCarExist = await Car.findById(_id);
+
+  if (isCarExist) {
+    const result = await Car.findByIdAndUpdate(
+      _id,
+      { isDeleted: true },
+      { new: true },
+    );
+    return result;
+  } else {
+    throw new AppError(httpStatus.NOT_FOUND, 'Car not found');
+  }
+};
+
 // Getting all cars from DB
 const getAllCarsFromDB = async (query: Record<string, unknown>) => {
   const carQuery = new QueryBuilder(Car.find(), query)
@@ -46,4 +63,5 @@ export const carServices = {
   getAllCarsFromDB,
   getSingleCarFromDb,
   updateSingleCarInDB,
+  deleteCarFromDB,
 };

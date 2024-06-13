@@ -11,6 +11,9 @@ router.post(
   carControllers.createCar,
 );
 
+// To delete a car
+router.delete('/:_id', carControllers.deleteCar);
+
 // To update a single car
 router.patch('/:_id', carControllers.updateSingleCar);
 
