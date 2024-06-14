@@ -10,7 +10,6 @@ const signInUser = async (payload: TSignIn) => {
   const password = payload?.password;
   // if the user is exist
   const user = await User.isUserExist(_id);
-  console.log(user.phone);
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'User Not found');
@@ -32,11 +31,9 @@ const signInUser = async (payload: TSignIn) => {
     role: user.role,
   };
 
-  const accessToken = jwt.sign(jwtPayload, 'hellothere', {
-    expiresIn: '10d',
+  const accessToken = jwt.sign(jwtPayload, config.jwt_access_secret as string, {
+    expiresIn: '1h',
   });
-  console.log(`Access-token is: ${accessToken}`);
-  console.log(user.role);
 
   return {
     accessToken,

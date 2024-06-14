@@ -2,6 +2,7 @@ import express from 'express';
 import validateRequest from '../../middleware/validateRequest';
 import { carValidations } from './car.validation';
 import { carControllers } from './car.controller';
+import auth from '../../middleware/auth';
 
 const router = express.Router();
 
@@ -21,6 +22,6 @@ router.patch('/:_id', carControllers.updateSingleCar);
 router.get('/:_id', carControllers.getSingleCar);
 
 // To get all the cars
-router.get('/', carControllers.getAllCars);
+router.get('/', auth(), carControllers.getAllCars);
 
 export const CarRoutes = router;
